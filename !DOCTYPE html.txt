@@ -37,21 +37,18 @@
     .blue { background: #3498db; }
     .pink { background: #ff69b4; }
 
-    /* Sparkle animation */
     @keyframes sparkle {
       0% { box-shadow: 0 0 5px rgba(255,255,255,0.6); }
       50% { box-shadow: 0 0 15px rgba(255,255,255,0.9), 0 0 25px rgba(255,192,203,0.8); }
       100% { box-shadow: 0 0 5px rgba(255,255,255,0.6); }
     }
 
-    /* Floating animation */
     @keyframes float {
       0% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
       100% { transform: translateY(0); }
     }
 
-    /* Pretty Gift Card Styling */
     .gift-card {
       background: linear-gradient(135deg, #ffe6f0, #ffcce0);
       border: 4px dashed #ff4d94;
@@ -87,7 +84,8 @@
     </p>
 
     <!-- Game Section -->
-    <div id="game" class="mt-6 flex justify-center space-x-6">
+    <p class="text-lg font-semibold text-purple-600 mt-6">Pop any balloon 🎈</p>
+    <div id="game" class="mt-2 flex justify-center space-x-6">
       <div class="balloon red" onclick="checkBalloon(this,0)"></div>
       <div class="balloon blue" onclick="checkBalloon(this,1)"></div>
       <div class="balloon pink" onclick="checkBalloon(this,2)"></div>
@@ -109,24 +107,16 @@
   </div>
 
   <script>
-    // Randomly choose which balloon has the surprise
     const winningBalloon = Math.floor(Math.random() * 3);
 
     function checkBalloon(element, choice) {
       if (choice === winningBalloon) {
         document.getElementById('surprise').classList.remove('hidden');
-
-        confetti({
-          particleCount: 200,
-          spread: 80,
-          origin: { y: 0.6 }
-        });
-
+        confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 } });
         setTimeout(() => {
           document.getElementById('giftcard').classList.remove('hidden');
         }, 1500);
       } else {
-        // teasing messages
         const messages = [
           "Haha, not this one 🎈 Try next!",
           "Close... but no surprise here 😉",
@@ -134,7 +124,6 @@
           "Nope, this balloon is empty 🎈"
         ];
         alert(messages[Math.floor(Math.random() * messages.length)]);
-        // remove the clicked balloon
         element.style.display = "none";
       }
     }
