@@ -18,7 +18,7 @@
       margin: 10px;
       position: relative;
       transition: transform 0.2s;
-      animation: sparkle 2s infinite;
+      animation: sparkle 2s infinite, float 3s ease-in-out infinite;
     }
     .balloon::after {
       content: "";
@@ -42,6 +42,13 @@
       0% { box-shadow: 0 0 5px rgba(255,255,255,0.6); }
       50% { box-shadow: 0 0 15px rgba(255,255,255,0.9), 0 0 25px rgba(255,192,203,0.8); }
       100% { box-shadow: 0 0 5px rgba(255,255,255,0.6); }
+    }
+
+    /* Floating animation */
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
     }
 
     .gift-card {
@@ -72,18 +79,12 @@
       "Sisters are like stars — you may not always see them, but you know they’re always shining."
     </p>
 
-    <!-- Button to start the game -->
-    <button onclick="startGame()" class="mt-6 px-6 py-3 bg-pink-500 text-white rounded-xl shadow hover:bg-pink-600 transition w-full sm:w-auto">
-      Play a Game 🎊
-    </button>
-
     <!-- Game Section -->
-    <div id="game" class="mt-6 hidden">
-      <p class="text-lg font-semibold text-purple-600 mb-4">Pop the pink balloon to unlock your surprise 🎈</p>
+    <div id="game" class="mt-6">
       <div class="flex justify-center space-x-6">
-        <div class="balloon red" onclick="wrongBalloon()"></div>
-        <div class="balloon blue" onclick="wrongBalloon()"></div>
-        <div class="balloon pink" onclick="rightBalloon()"></div>
+        <div class="balloon red" onclick="checkBalloon(0)"></div>
+        <div class="balloon blue" onclick="checkBalloon(1)"></div>
+        <div class="balloon pink" onclick="checkBalloon(2)"></div>
       </div>
     </div>
 
@@ -103,27 +104,32 @@
   </div>
 
   <script>
-    function startGame() {
-      document.getElementById('game').classList.remove('hidden');
-    }
+    // Randomly choose which balloon has the surprise
+    const winningBalloon = Math.floor(Math.random() * 3);
 
-    function wrongBalloon() {
-      alert("Oops! That’s not the right balloon 🎈 Try again!");
-    }
+    function checkBalloon(choice) {
+      if (choice === winningBalloon) {
+        document.getElementById('surprise').classList.remove('hidden');
 
-    function rightBalloon() {
-      document.getElementById('game').classList.add('hidden');
-      document.getElementById('surprise').classList.remove('hidden');
+        confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
 
-      confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
-
-      setTimeout(() => {
-        document.getElementById('giftcard').classList.remove('hidden');
-      }, 1500);
+        setTimeout(() => {
+          document.getElementById('giftcard').classList.remove('hidden');
+        }, 1500);
+      } else {
+        // teasing messages
+        const messages = [
+          "Haha, not this one 🎈 Try next!",
+          "Close... but no surprise here 😉",
+          "Teasing you! Pick another 🎈",
+          "Nope, this balloon is empty 🎈"
+        ];
+        alert(messages[Math.floor(Math.random() * messages.length)]);
+      }
     }
   </script>
 </body>
