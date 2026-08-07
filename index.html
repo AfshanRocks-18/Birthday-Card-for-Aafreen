@@ -18,6 +18,9 @@
     .balloon:hover {
       transform: scale(1.2);
     }
+    .red { color: #e74c3c; }
+    .blue { color: #3498db; }
+    .pink { color: #ff69b4; }
     .gift-card {
       background: linear-gradient(135deg, #ffdde1, #ee9ca7);
       border: 3px solid #ff4d94;
@@ -54,9 +57,9 @@
     <div id="game" class="mt-6 hidden">
       <p class="text-lg font-semibold text-purple-600 mb-4">Pop the right balloon to unlock your surprise 🎈</p>
       <div class="flex justify-center space-x-6">
-        <span class="balloon" onclick="wrongBalloon()">🎈</span>
-        <span class="balloon" onclick="wrongBalloon()">🎈</span>
-        <span class="balloon" onclick="rightBalloon()">🎈</span>
+        <span class="balloon red" onclick="wrongBalloon()">🎈</span>
+        <span class="balloon blue" onclick="wrongBalloon()">🎈</span>
+        <span class="balloon pink" onclick="rightBalloon()">🎈</span>
       </div>
     </div>
 
