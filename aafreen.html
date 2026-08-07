@@ -51,17 +51,24 @@
       100% { transform: translateY(0); }
     }
 
+    /* Pretty Gift Card Styling */
     .gift-card {
-      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-      border: 3px solid #ff4d94;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+      background: linear-gradient(135deg, #ffe6f0, #ffcce0);
+      border: 4px dashed #ff4d94;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.5);
       position: relative;
       overflow: hidden;
+      animation: glow 2s infinite alternate;
     }
     .gift-card-content {
       position: relative;
       z-index: 1;
+      text-align: center;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 10px #ff4d94; }
+      to { box-shadow: 0 0 25px #ff69b4; }
     }
   </style>
 </head>
@@ -80,12 +87,10 @@
     </p>
 
     <!-- Game Section -->
-    <div id="game" class="mt-6">
-      <div class="flex justify-center space-x-6">
-        <div class="balloon red" onclick="checkBalloon(0)"></div>
-        <div class="balloon blue" onclick="checkBalloon(1)"></div>
-        <div class="balloon pink" onclick="checkBalloon(2)"></div>
-      </div>
+    <div id="game" class="mt-6 flex justify-center space-x-6">
+      <div class="balloon red" onclick="checkBalloon(this,0)"></div>
+      <div class="balloon blue" onclick="checkBalloon(this,1)"></div>
+      <div class="balloon pink" onclick="checkBalloon(this,2)"></div>
     </div>
 
     <!-- Surprise Message -->
@@ -96,9 +101,9 @@
     <!-- Nykaa Gift Card Surprise -->
     <div id="giftcard" class="mt-6 hidden gift-card p-6">
       <div class="gift-card-content">
-        <h2 class="text-2xl font-bold text-pink-700 mb-2">💄 Nykaa Gift Card 💄</h2>
-        <p class="text-gray-800 mb-3">Because you deserve the best, here’s a special gift to pamper yourself with beauty and joy! ✨</p>
-        <div class="text-xl font-extrabold text-pink-600">🎁 Enjoy shopping, Aafreen! 🎁</div>
+        <h2 class="text-3xl font-bold text-pink-700 mb-2">💄 Nykaa Gift Card 💄</h2>
+        <p class="text-gray-800 mb-3 text-lg">Because you deserve the best, here’s a sparkling gift to pamper yourself with beauty and joy! ✨</p>
+        <div class="text-2xl font-extrabold text-pink-600">🎁 Enjoy shopping, Aafreen! 🎁</div>
       </div>
     </div>
   </div>
@@ -107,13 +112,13 @@
     // Randomly choose which balloon has the surprise
     const winningBalloon = Math.floor(Math.random() * 3);
 
-    function checkBalloon(choice) {
+    function checkBalloon(element, choice) {
       if (choice === winningBalloon) {
         document.getElementById('surprise').classList.remove('hidden');
 
         confetti({
-          particleCount: 150,
-          spread: 70,
+          particleCount: 200,
+          spread: 80,
           origin: { y: 0.6 }
         });
 
@@ -129,6 +134,8 @@
           "Nope, this balloon is empty 🎈"
         ];
         alert(messages[Math.floor(Math.random() * messages.length)]);
+        // remove the clicked balloon
+        element.style.display = "none";
       }
     }
   </script>
