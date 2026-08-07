@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Aafreen 🎉</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    }
+    .balloon {
+      width: 60px;
+      height: 80px;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      cursor: pointer;
+      margin: 10px;
+      position: relative;
+      transition: transform 0.2s;
+      animation: sparkle 2s infinite, float 3s ease-in-out infinite;
+    }
+    .balloon::after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      width: 2px;
+      height: 20px;
+      background: #555;
+      transform: translateX(-50%);
+    }
+    .balloon:hover {
+      transform: scale(1.1);
+    }
+    .red { background: #e74c3c; }
+    .blue { background: #3498db; }
+    .pink { background: #ff69b4; }
+
+    /* Sparkle animation */
+    @keyframes sparkle {
+      0% { box-shadow: 0 0 5px rgba(255,255,255,0.6); }
+      50% { box-shadow: 0 0 15px rgba(255,255,255,0.9), 0 0 25px rgba(255,192,203,0.8); }
+      100% { box-shadow: 0 0 5px rgba(255,255,255,0.6); }
+    }
+
+    /* Floating animation */
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Pretty Gift Card Styling */
+    .gift-card {
+      background: linear-gradient(135deg, #ffe6f0, #ffcce0);
+      border: 4px dashed #ff4d94;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.5);
+      position: relative;
+      overflow: hidden;
+      animation: glow 2s infinite alternate;
+    }
+    .gift-card-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 10px #ff4d94; }
+      to { box-shadow: 0 0 25px #ff69b4; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4">
+  <div class="bg-white shadow-2xl rounded-2xl p-6 sm:p-8 max-w-md w-full text-center">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-pink-500 mb-4">🎂 Happy Birthday, Aafreen! 🎂</h1>
+    <p class="text-base sm:text-lg text-gray-700 mb-6">
+      Dearest Aafreen, wishing you a magical day filled with love, laughter, and joy. 
+      May this year bring you endless happiness, success, and cherished memories. 💖
+    </p>
+
+    <div class="text-5xl sm:text-6xl mb-6">🎉🎈🎁</div>
+
+    <p class="text-gray-600 italic text-sm sm:text-base">
+      "Sisters are like stars — you may not always see them, but you know they’re always shining."
+    </p>
+
+    <!-- Game Section -->
+    <div id="game" class="mt-6 flex justify-center space-x-6">
+      <div class="balloon red" onclick="checkBalloon(this,0)"></div>
+      <div class="balloon blue" onclick="checkBalloon(this,1)"></div>
+      <div class="balloon pink" onclick="checkBalloon(this,2)"></div>
+    </div>
+
+    <!-- Surprise Message -->
+    <p id="surprise" class="mt-4 text-lg sm:text-xl font-semibold text-purple-600 hidden">
+      Aafreen, you are truly amazing! Have the best birthday ever! 💕
+    </p>
+
+    <!-- Nykaa Gift Card Surprise -->
+    <div id="giftcard" class="mt-6 hidden gift-card p-6">
+      <div class="gift-card-content">
+        <h2 class="text-3xl font-bold text-pink-700 mb-2">💄 Nykaa Gift Card 💄</h2>
+        <p class="text-gray-800 mb-3 text-lg">Because you deserve the best, here’s a sparkling gift to pamper yourself with beauty and joy! ✨</p>
+        <div class="text-2xl font-extrabold text-pink-600">🎁 Enjoy shopping, Aafreen! 🎁</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Randomly choose which balloon has the surprise
+    const winningBalloon = Math.floor(Math.random() * 3);
+
+    function checkBalloon(element, choice) {
+      if (choice === winningBalloon) {
+        document.getElementById('surprise').classList.remove('hidden');
+
+        confetti({
+          particleCount: 200,
+          spread: 80,
+          origin: { y: 0.6 }
+        });
+
+        setTimeout(() => {
+          document.getElementById('giftcard').classList.remove('hidden');
+        }, 1500);
+      } else {
+        // teasing messages
+        const messages = [
+          "Haha, not this one 🎈 Try next!",
+          "Close... but no surprise here 😉",
+          "Teasing you! Pick another 🎈",
+          "Nope, this balloon is empty 🎈"
+        ];
+        alert(messages[Math.floor(Math.random() * messages.length)]);
+        // remove the clicked balloon
+        element.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
